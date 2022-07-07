@@ -9,7 +9,8 @@ const About = (props) => {
 			<p>Report issues and suggest features <a href="https://github.com/naresh97/History-AutoDelete-Rebooted/issues">here</a></p>
 			<span>Contributors:</span>
 			<ul>
-				<li>Nareshkumar Rao, Kenny Do</li>
+				<li>Nareshkumar Rao</li>
+				<li>Kenny Do</li>
 			</ul>
 		</div>
 	);
