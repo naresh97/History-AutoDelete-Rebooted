@@ -56,6 +56,10 @@ class App extends Component {
 		const {onNewExpression} = this.props;
 		const splicedURL = spliceWWW(tab.url);
 		const hostname = getHostname(tab.url);
+		const urlStyle = {
+			display: "flex", alignItems: "center"
+		};
+
 		return (
 			<div className="container">
 				<div className="row">
@@ -65,9 +69,9 @@ class App extends Component {
 						<i style={{float: "right"}} onClick={() => browser.runtime.openOptionsPage()} className="fa fa-cog fa-2x cursorPoint" aria-hidden="true"></i>
 					</div>
 
-					<div>
+					<div style={urlStyle}>
 						<img style={{
-							height: "1em", width: "1em", margin: "0 5px 0px 13px"
+							height: "1em", width: "1em", margin: "0 10px 0px 13px"
 						}} src={tab.favIconUrl} />
 						<span>{splicedURL}</span>
 					</div>

@@ -6,7 +6,7 @@ const RowAction = ({
 }) => (
 	<div className="row">
 		<label id={labelFor} style={{
-			width: `${window.innerWidth}px`, marginBotton: "initial"
+			width: "100%", marginBotton: "initial"
 		}} onClick={action}>
 			<span className="userAction">{text}</span>
 		</label>
