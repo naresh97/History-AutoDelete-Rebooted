@@ -10,6 +10,3 @@ Control your history! This extension will let you pick a domain to be auto delet
 - Clear all history for a domain on demand
 - Responsive and Sleek Settings Menu
 
-[Chrome](https://chrome.google.com/webstore/detail/history-autodelete/bhfakmaiadhflpjloimlagikhodjiefj)
-
-[Firefox](https://addons.mozilla.org/en-US/firefox/addon/history-autodelete)
