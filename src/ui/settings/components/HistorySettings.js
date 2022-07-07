@@ -1,5 +1,7 @@
 import {connect} from "react-redux";
-import {resetHistoryDeletedCounterUI, resetSettingsUI, updateSettingUI} from "../../UIActions";
+import {
+	resetHistoryDeletedCounterUI, resetSettingsUI, updateSettingUI
+} from "../../UIActions";
 import CheckboxSetting from "./CheckboxSetting";
 import PropTypes from "prop-types";
 import React from "react";
@@ -39,7 +41,7 @@ const HistorySettings = (props) => {
 						text={`
               History is cleared on startup and for every hour the browser is open.
               Does a manual cleanup when turning on for the first time.
-              `}
+              `} zIndex={3}
 					/>
 
 				</div>
@@ -56,6 +58,7 @@ const HistorySettings = (props) => {
 					/>
 					<Tooltip
 						text={"Counts the number of history deleted during this session and in total. This is shown in the Welcome Screen."}
+						zIndex={2}
 					/>
 				</div>
 
@@ -77,6 +80,7 @@ const HistorySettings = (props) => {
 					/>
 					<Tooltip
 						text={"Shows how many history entries that domain has in your history. Numbers will fluctuate if you have have older history automatically deleted."}
+						zIndex={1}
 					/>
 				</div>
 			</div>
