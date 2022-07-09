@@ -19,20 +19,21 @@ class App extends Component {
 	}
 
 	async clearHistoryDomain(tabDomain) {
-		const results = await browser.history.search({
-			text: tabDomain,
-			maxResults: 1000000000,
-			startTime: 0
-		});
-
-		if (results.length > 0) {
-			for (let k = 0; k < results.length; k++) {
-				browser.history.deleteUrl({url: results[k].url});
-			}
-			this.animateSuccess(document.getElementById("clearHistory"));
-		} else {
-			this.animateFailure(document.getElementById("clearHistory"));
-		}
+		let getResults = () => {
+			browser.history.search({
+				text: tabDomain,
+				startTime: 0
+			}).then((results) => {
+				if (results.length !== 0) {
+					results.forEach(
+						(result) => browser.history.deleteUrl({url: result.url})
+					);
+					return getResults();
+				}
+				return false;
+			}).catch();
+		};
+		getResults();
 	}
 
 	// Flash a green background if successfull
