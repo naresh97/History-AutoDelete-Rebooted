@@ -4,6 +4,7 @@ import reducer from "./Reducers";
 import thunk from "redux-thunk";
 import {
 	addExpression,
+	addRawExpression,
 	removeExpression,
 	resetHistoryDeletedCounter,
 	resetSettings,
@@ -26,6 +27,7 @@ const actions = {
 	UPDATE_SETTING: updateSetting,
 	RESET_SETTINGS: resetSettings,
 	ADD_EXPRESSION: addExpression,
+	ADD_RAW_EXPRESSION: addRawExpression,
 	REMOVE_EXPRESSION: removeExpression,
 	UPDATE_EXPRESSION: updateExpression,
 	RESET_HISTORY_DELETED_COUNTER: resetHistoryDeletedCounter

@@ -13,6 +13,11 @@ export const addExpressionUI = (payload) => ({
 	payload
 });
 
+export const addRawExpressionUI = (payload) => ({
+	type: C.ADD_RAW_EXPRESSION,
+	payload
+});
+
 export const removeExpressionUI = (payload) => ({
 	type: C.REMOVE_EXPRESSION,
 	payload
