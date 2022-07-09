@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import Tooltip from "./SettingsTooltip";
 import ExpressionTableBody from "../../common_components/ExpressionTableBody";
 import {
-	addExpressionUI
+	addExpressionUI, addRawExpressionUI
 } from "../../UIActions";
 
 const styles = {
@@ -26,12 +26,12 @@ class Expressions extends React.Component {
 	}
 
 	importExpressions(files) {
-		const {onNewExpression} = this.props;
+		const {onNewRawExpression} = this.props;
 		let reader = new FileReader();
 		reader.onload = (file) => {
 			try {
 				const newExpressions = JSON.parse(file.target.result);
-				newExpressions.forEach((expression) => onNewExpression(expression));
+				newExpressions.forEach((regExp) => onNewRawExpression(regExp));
 			} catch (error) {
 				this.setState({error: error.toString()});
 			}
@@ -43,6 +43,11 @@ class Expressions extends React.Component {
 	addExpressionByInput(payload) {
 		const {onNewExpression} = this.props;
 		onNewExpression(payload);
+		this.setState({expressionInput: ""});
+	}
+	addRawExpressionByInput(payload) {
+		const {onNewRawExpression} = this.props;
+		onNewRawExpression(payload);
 		this.setState({expressionInput: ""});
 	}
 
@@ -60,7 +65,7 @@ class Expressions extends React.Component {
 					<label htmlFor="form1" className="">Enter Expression:</label>
 					<input
 						style={{
-							display: "inline", width: "93%"
+							display: "inline", width: "50%"
 						}}
 						value={this.state.expressionInput}
 						onChange={(e) => this.setState({expressionInput: e.target.value})}
@@ -74,15 +79,18 @@ class Expressions extends React.Component {
 						className="form-control"
 					/>
 
-					<button className="btn btn-primary" onClick={() => this.addExpressionByInput({expression: this.state.expressionInput})}>
+					<button style={{marginLeft: 3}} className="btn btn-primary" onClick={() => this.addExpressionByInput({expression: this.state.expressionInput})}>
 						<i className="fa fa-plus-square" aria-hidden="true"></i>
+					</button>
+					<button style={{marginLeft: 3}} className="btn btn-primary" onClick={() => this.addRawExpressionByInput({expression: this.state.expressionInput})}>
+						<i aria-hidden="true">Add RegEx</i>
 					</button>
 					<Tooltip
 						text={"Enter expressions without the 'www.' part. You can use the wildcard *. For example, git*b.com* will match github.com and gitlab.com. It also works with paths as well."}
 					/>
 				</div>
 
-				<a href={`data:text/plain;charset=utf-8,${encodeURIComponent(JSON.stringify(this.props.expressions, null, "  "))}`} download="History_AutoDelete_2.X.X_Expressions.json">
+				<a href={`data:text/plain;charset=utf-8,${JSON.stringify(this.props.expressions, null, "  ")}`} download="History_AutoDelete_2.X.X_Expressions.json">
 
 					<button style={styles.buttonMargins} className="btn btn-primary">
 						<i style={styles.buttonIcon} className="fa fa-download" aria-hidden="true"></i>
@@ -127,6 +135,7 @@ class Expressions extends React.Component {
 
 Expressions.propTypes = {
 	onNewExpression: PropTypes.func,
+	onNewRawExpression: PropTypes.func,
 	style: PropTypes.object,
 	expressions: PropTypes.array.isRequired
 };
@@ -136,10 +145,15 @@ const mapStateToProps = (state) => {
 	return {expressions};
 };
 
-const mapDispatchToProps = (dispatch) => ({onNewExpression(payload) {
-	dispatch(
-		addExpressionUI(payload)
-	);
-}});
+const mapDispatchToProps = (dispatch) => ({
+	onNewExpression: (payload) =>
+		dispatch(
+			addExpressionUI(payload)
+		),
+	onNewRawExpression: (payload) =>
+		dispatch(
+			addRawExpressionUI(payload)
+		)
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Expressions);

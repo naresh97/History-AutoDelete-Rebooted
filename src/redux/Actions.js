@@ -9,6 +9,14 @@ export const addExpression = (expression) => {
 	};
 };
 
+export const addRawExpression = (expression) => {
+	const {payload} = expression;
+	return {
+		type: C.ADD_RAW_EXPRESSION,
+		payload
+	};
+};
+
 export const removeExpression = (expression) => {
 	const {payload} = expression;
 	return {

@@ -22,10 +22,8 @@ export const isAWebpage = (URL) => {
 export const spliceWWW = (url) => {
 	let newURL;
 	try {
-		let urlObject = new URL(url);
-		newURL = `${urlObject.hostname}${urlObject.pathname}`;
-		// Strip "www." if the URL starts with it.
-		newURL = newURL.replace(/^www[a-z0-9]?\./, "");
+		newURL = url;
+		newURL = newURL.replace(/^(http|https|file)(:[\/]*)(www[a-z0-9]?\.)/, "");
 	} catch (error) {
 		return "";
 	}

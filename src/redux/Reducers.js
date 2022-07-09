@@ -53,6 +53,18 @@ export const expressions = (state = [], action) => {
 		return [...state, newExpressionObject].sort((a, b) => a.expression.localeCompare(b.expression));
 	}
 
+	case C.ADD_RAW_EXPRESSION: {
+		if (hasExpression(state, action)) {
+			return state;
+		}
+		const newExpressionObject = {
+			...action.payload,
+			id: shortid.generate(),
+			regExp: action.payload.expression
+		};
+		return [...state, newExpressionObject].sort((a, b) => a.expression.localeCompare(b.expression));
+	}
+
 	case C.UPDATE_EXPRESSION:
 		if (hasExpression(state, action)) {
 			return state;
