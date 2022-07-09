@@ -74,7 +74,7 @@ class App extends Component {
 						<img style={{
 							height: "1em", width: "1em", margin: "0 10px 0px 13px"
 						}} src={tab.favIconUrl} />
-						<span>{splicedURL}</span>
+						<span>{hostname}</span>
 					</div>
 
 				</div>
