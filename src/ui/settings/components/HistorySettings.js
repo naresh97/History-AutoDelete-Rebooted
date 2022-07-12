@@ -8,6 +8,54 @@ import React from "react";
 import Tooltip from "./SettingsTooltip";
 
 class HistorySettings extends React.Component {
+	defaultRetroButtonText = "Retroactively delete by matched expressions";
+	state = {retroButtonText: this.defaultRetroButtonText}
+	runningRetroDelete = false;
+
+	retroDeleteHistory() {
+		this.runningRetroDelete = !this.runningRetroDelete;
+		if (!this.runningRetroDelete) {
+			this.setState({
+				...this.state, retroButtonText: "Click to Restart Retroactive Delete"
+			});
+			return false;
+		}
+
+		let regExList = [];
+		this.props.expressions.forEach((ex) => {
+			regExList.push(new RegExp(ex.regExp));
+		});
+		const currentTime = new Date().getTime();
+
+		const searchIntervalInMinutes = 24 * 60 * 60 * 1000;
+		const batchSize = 500;
+		let deletionCount = 0;
+
+		let getSearchResults = (toTime) => {
+			const fromTime = toTime - searchIntervalInMinutes;
+			if (fromTime < 0) {return false;}
+			if (!this.runningRetroDelete) {return false;}
+			this.setState({
+				...this.state, retroButtonText: `Click to Stop: Deleted ${deletionCount} entries till ${new Date(fromTime).toLocaleString()}`
+			});
+			return browser.history.search({
+				startTime: fromTime, endTime: toTime, text: "", maxResults: batchSize
+			}).then((results) => {
+				results.forEach((result) => {
+					regExList.forEach((exp) => {
+						if (exp.test(result.url)) {
+							// browser.history.deleteUrl({url: result.url});
+							deletionCount++;
+						}
+					});
+				});
+				return getSearchResults(fromTime);
+			}).catch();
+		};
+
+		return getSearchResults(currentTime);
+	}
+
 	render() {
 		const {
 			style,
@@ -89,6 +137,17 @@ class HistorySettings extends React.Component {
 				<br /><br />
 				<div className="row">
 					<div className="col-md-12">
+						<button className="btn btn-danger" onClick={() => this.retroDeleteHistory()}>
+							<span>{this.state.retroButtonText}</span>
+						</button>
+						<Tooltip
+							text={"This will retroactively delete history that matches the list of expressions. Runs in the background."}
+						/>
+					</div>
+				</div>
+				<br />
+				<div className="row">
+					<div className="col-md-12">
 						<button className="btn btn-danger" onClick={() => onResetButtonClick()}>
 							<span>Default Settings</span>
 						</button>
@@ -106,15 +165,15 @@ class HistorySettings extends React.Component {
 HistorySettings.propTypes = {
 	style: PropTypes.object,
 	settings: PropTypes.object,
+	expressions: PropTypes.array.isRequired,
 	onUpdateSetting: PropTypes.func,
 	onResetButtonClick: PropTypes.func,
 	onResetCounterButtonClick: PropTypes.func
 };
 
-const mapStateToProps = (state) => {
-	const {settings} = state;
-	return {settings};
-};
+const mapStateToProps = (state) => ({
+	expressions: state.expressions, settings: state.settings
+});
 
 const mapDispatchToProps = (dispatch) => ({
 	onUpdateSetting(newSetting) {
