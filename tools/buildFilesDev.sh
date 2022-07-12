@@ -24,6 +24,4 @@ rm ${CHROMEFILENAME}.zip
 zip -r ${CHROMEFILENAME}.zip *
 mv ${CHROMEFILENAME}.zip ../$DES/
 
-git checkout manifest.json
-
 echo "Package done."

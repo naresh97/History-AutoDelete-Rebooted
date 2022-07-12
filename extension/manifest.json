@@ -10,28 +10,21 @@
 	"backgroundBundle.js"
 	]
   },
-  "description": "Control Your History! Choose to Auto Delete Certain History and/or Auto Clean Older History",
-  "homepage_url": "https://github.com/mrdokenny/History-AutoDelete",
+  "description": "Control your history. Automatically and selectively delete history.",
+  "homepage_url": "https://github.com/naresh97/History-AutoDelete-Rebooted",
   "browser_action": {
     "default_icon": {
       "24": "icons/icon_24.png",
       "32": "icons/icon_32.png",
       "48": "icons/icon_48.png"
     },
-    "default_title": "History AutoDelete",
+    "default_title": "History AutoDelete Rebooted",
     "default_popup": "popup/popup.html"
   },
   "icons": {
     "48": "icons/icon_48.png",
     "128": "icons/icon_128.png"
   },
-  "applications": {
-    "gecko": {
-      "id": "{7e79d10d-9667-4d38-838d-471281c568c3}",
-      "strict_min_version": "50.0"
-    }
-  },
-  "options_ui": {
   	"page": "settings/settings.html",
   	"open_in_tab" : true
   },
@@ -43,6 +36,6 @@
     "alarms"
   ],
   "manifest_version": 2,
-  "name": "History AutoDelete",
-  "version": "2.0.2"
+  "name": "History AutoDelete Rebooted",
+  "version": "3.0.0"
 }

@@ -33,8 +33,8 @@ const Welcome = ({
 		<div style={style} id="welcomeContent">
 			<h1>Welcome</h1>
 
-			<p>Hi there!  History AutoDelete has deleted in total <b id="totalDeleted">{historyDeletedCounterTotal}</b> entries.
-        Thanks for trying out History AutoDelete. If you liked it, then please give a review.</p>
+			<p>Hi there!  History AutoDelete Rebooted has deleted in total <b id="totalDeleted">{historyDeletedCounterTotal}</b> entries.
+        Thanks for trying out History AutoDelete Rebooted. If you liked it, then please give a review.</p>
 
 			<h2>Release Notes</h2>
 			<div className="row">
