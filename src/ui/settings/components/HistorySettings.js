@@ -44,7 +44,7 @@ class HistorySettings extends React.Component {
 				results.forEach((result) => {
 					regExList.forEach((exp) => {
 						if (exp.test(result.url)) {
-							// browser.history.deleteUrl({url: result.url});
+							browser.history.deleteUrl({url: result.url});
 							deletionCount++;
 						}
 					});
