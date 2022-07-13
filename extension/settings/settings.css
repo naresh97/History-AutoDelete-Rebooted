@@ -194,8 +194,7 @@ input[type="file"] {
 /* Tooltip text */
 .tooltipCustom .tooltiptext {
   visibility: hidden;
-
-  max-width: 10em;
+  min-width: 15em;
   min-height: 5em;
   background-color: grey;
   color: #F9F9F9;

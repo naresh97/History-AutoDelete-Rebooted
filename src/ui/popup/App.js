@@ -19,20 +19,21 @@ class App extends Component {
 	}
 
 	async clearHistoryDomain(tabDomain) {
-		const results = await browser.history.search({
-			text: tabDomain,
-			maxResults: 1000000000,
-			startTime: 0
-		});
-
-		if (results.length > 0) {
-			for (let k = 0; k < results.length; k++) {
-				browser.history.deleteUrl({url: results[k].url});
-			}
-			this.animateSuccess(document.getElementById("clearHistory"));
-		} else {
-			this.animateFailure(document.getElementById("clearHistory"));
-		}
+		let getResults = () => {
+			browser.history.search({
+				text: tabDomain,
+				startTime: 0
+			}).then((results) => {
+				if (results.length !== 0) {
+					results.forEach(
+						(result) => browser.history.deleteUrl({url: result.url})
+					);
+					return getResults();
+				}
+				return false;
+			}).catch();
+		};
+		getResults();
 	}
 
 	// Flash a green background if successfull
@@ -56,6 +57,10 @@ class App extends Component {
 		const {onNewExpression} = this.props;
 		const splicedURL = spliceWWW(tab.url);
 		const hostname = getHostname(tab.url);
+		const urlStyle = {
+			display: "flex", alignItems: "center"
+		};
+
 		return (
 			<div className="container">
 				<div className="row">
@@ -65,11 +70,11 @@ class App extends Component {
 						<i style={{float: "right"}} onClick={() => browser.runtime.openOptionsPage()} className="fa fa-cog fa-2x cursorPoint" aria-hidden="true"></i>
 					</div>
 
-					<div>
+					<div style={urlStyle}>
 						<img style={{
-							height: "1em", width: "1em", margin: "0 5px 0px 13px"
+							height: "1em", width: "1em", margin: "0 10px 0px 13px"
 						}} src={tab.favIconUrl} />
-						<span>{splicedURL}</span>
+						<span>{hostname}</span>
 					</div>
 
 				</div>

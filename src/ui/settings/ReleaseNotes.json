@@ -1,6 +1,18 @@
 {
   "releases":[
     {
+      "version": "3.0.0",
+      "notes": [
+        "Feature: Button added for retroactively delete all history that matches the list of expressions",
+        "Feature: Add raw RegExp expressions",
+        "Fix: Popup elements have bad sizing in overflow mode",
+        "Fix: Tooltips in History Settings not displaying correctly",
+        "Fix: Matching works for all URLs",
+        "Fix: Import/Export supports RegExp",
+        "Fix: Better implementation for stripping protocols (http,https,file) andd www"
+      ]
+    },
+    {
       "version": "2.0.0",
       "notes": [
         "Changed: Under the hood improvements with React/Redux. Your settings and Domain list will be migrated automatically on update. Old settings are still kept.",
