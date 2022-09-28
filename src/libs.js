@@ -13,17 +13,14 @@ export const getHostname = (urlToGetHostName) => {
 
 // Returns true if it is a webpage
 export const isAWebpage = (URL) => {
-	if (URL.match(/^http:/) || URL.match(/^https:/)) {
-		return true;
-	}
-	return false;
+	return URL.match(/^https?:/);
 };
 
 export const spliceWWW = (url) => {
 	let newURL;
 	try {
 		newURL = url;
-		newURL = newURL.replace(/^(http|https|file)(:[\/]*)(www[a-z0-9]?\.)/, "");
+		newURL = newURL.replace(/^((https?|file)\:\/\/)?(www[a-z0-9]?\.)?/, "");
 	} catch (error) {
 		return "";
 	}
